@@ -43,7 +43,6 @@ jobs:
           remote: ${{ env.RELEASE_DIR }}
           host: ${{ secrets.HOST }}
           privateKey : ${{ secrets.SSH_KEY }}
-          password: ${{ secrets.PASSWORD }}
 
       # https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/upgrade/
       - name: Overwrite files
