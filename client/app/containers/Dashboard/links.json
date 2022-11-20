@@ -1,6 +1,6 @@
 {
   "ROLE_ADMIN": [
-    { "to": "", "name": "Account Details", "prefix": "/dashboard" },
+    { "to": "", "name": "Account Info", "prefix": "/dashboard" },
     { "to": "/security", "name": "Account Security", "prefix": "/dashboard" },
     { "to": "/address", "name": "Address", "prefix": "/dashboard" },
     { "to": "/product", "name": "Products", "prefix": "/dashboard" },
@@ -14,7 +14,7 @@
     { "to": "/support", "name": "Support" }
   ],
   "ROLE_MERCHANT": [
-    { "to": "", "name": "Account Details", "prefix": "/dashboard" },
+    { "to": "", "name": "Account Info", "prefix": "/dashboard" },
     { "to": "/security", "name": "Account Security", "prefix": "/dashboard" },
     { "to": "/address", "name": "Address", "prefix": "/dashboard" },
     { "to": "/brand", "name": "Brand", "prefix": "/dashboard" },
@@ -24,7 +24,7 @@
     { "to": "/support", "name": "Support" }
   ],
   "ROLE_MEMBER": [
-    { "to": "", "name": "Account Details", "prefix": "/dashboard" },
+    { "to": "", "name": "Account Info", "prefix": "/dashboard" },
     { "to": "/security", "name": "Account Security", "prefix": "/dashboard" },
     { "to": "/address", "name": "Address", "prefix": "/dashboard" },
     { "to": "/orders", "name": "Orders", "prefix": "/dashboard" },
