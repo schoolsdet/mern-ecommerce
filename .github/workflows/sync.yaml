@@ -30,6 +30,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.USERNAME }}
           script_stop: true
           port: ${{ secrets.PORT }}
           script: |
@@ -41,6 +42,7 @@ jobs:
         with:
           local: ./
           remote: ${{ env.RELEASE_DIR }}
+          username: ${{ secrets.USERNAME }}
           host: ${{ secrets.HOST }}
           privateKey : ${{ secrets.SSH_KEY }}
 
@@ -61,6 +63,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           script_stop: true
           envs: "ADMIN_EMAIL,ADMIN_PASSWORD,AWS_ACCESS_KEY_ID,AWS_BUCKET_NAME,AWS_REGION,AWS_SECRET_ACCESS_KEY,BASE_URL,MONGO_INITDB_ROOT_PASSWORD,MONGO_PASSWORD,MONGO_USER"
