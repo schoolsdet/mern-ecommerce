@@ -44,7 +44,13 @@ const seedDB = async () => {
 };
 
 (async () => {
-  await setupDB().then(async () => {
-    await seedDB();
-  });
+  try {
+    await setupDB().then(async () => {
+      await seedDB();
+    });
+    process.exit(0);
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
 })();
