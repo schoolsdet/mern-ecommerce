@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:6.0.3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: mern_ecommerce
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  mern-commerce:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - mongodb_container
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongodb_container:27017/mern_ecommerce
+      BASE_CLIENT_URL: ${BASE_URL}
+      BASE_SERVER_URL: ${BASE_URL}
+      BASE_API_URL: api
+      PORT: 3000
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
+
+volumes:
+  mongodb_data_container:
+

@@ -1,5 +1,6 @@
-FROM node:19-alpine3.15
+FROM node:16-alpine3.15
 WORKDIR /app
 COPY ./ /app/
-RUN npm run build
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+RUN npm install && npm run build
 ENTRYPOINT ["./entrypoint.sh"]

@@ -21,11 +21,16 @@ exports.s3Upload = async image => {
       ACL: 'public-read'
     };
 
-    const s3Upload = await s3bucket.upload(params).promise();
-
-    imageUrl = s3Upload.Location;
-    imageKey = s3Upload.key;
+    try {
+      const s3Upload = await s3bucket.upload(params).promise();
+      imageUrl = s3Upload.Location;
+      imageKey = s3Upload.key;
+      return { imageUrl, imageKey };
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
-  return { imageUrl, imageKey };
+
 };
