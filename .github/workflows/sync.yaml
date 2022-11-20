@@ -78,6 +78,6 @@ jobs:
             export MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
             export MONGO_PASSWORD=${MONGO_PASSWORD}
             export MONGO_USER=${MONGO_USER}
-            chmod +x ./entrypoint.sh
             cd ${{ env.RELEASE_DIR }}
+            chmod +x ./entrypoint.sh
             docker-compose up -d --no-deps --build
