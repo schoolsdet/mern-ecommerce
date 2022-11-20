@@ -47,7 +47,7 @@ jobs:
           privateKey : ${{ secrets.SSH_KEY }}
 
       # https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/upgrade/
-      - name: Overwrite files
+      - name: Docker Compose Up
         uses: appleboy/ssh-action@v0.1.5
         env:
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
