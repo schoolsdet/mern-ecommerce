@@ -1,0 +1,67 @@
+# This workflow aim to build and deploy the development version of PrestaShop
+name: Build And Deploy Development Branch
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    name: Build and Deploy
+
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_DIR: '/tmp/mern-commerce'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ env.GH_BRANCH }}
+
+      - name: Prepare directories
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf ${{ env.RELEASE_DIR }}
+            mkdir -p ${{ env.RELEASE_DIR }}
+
+      - name: Copy single file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./
+          remote: ${{ env.RELEASE_DIR }}
+          host: ${{ secrets.HOST }}
+          privateKey : ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.PASSWORD }}
+
+      # https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/upgrade/
+      - name: Overwrite files
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script_stop: true
+          envs:
+            ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+            ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+            AWS_REGION: ${{ secrets.AWS_REGION }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            BASE_URL: ${{ secrets.BASE_URL }}
+            MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+            MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+            MONGO_USER: ${{ secrets.MONGO_USER }}
+          script: |
+            cd ${{ env.RELEASE_DIR }}
+            docker-compose up -d --no-deps --build
