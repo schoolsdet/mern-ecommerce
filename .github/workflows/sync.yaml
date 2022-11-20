@@ -17,6 +17,8 @@ jobs:
     env:
       RELEASE_DIR: '/tmp/mern-commerce'
 
+    #todo: add build tests
+
     steps:
       - uses: actions/checkout@v2
         with:
