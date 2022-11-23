@@ -37,8 +37,8 @@
   "dependencies": {
     "@fontsource/poppins": "^4.5.9",
     "autosuggest-highlight": "^3.1.1",
-    "aws-sdk": "^2.799.0",
-    "axios": "^0.21.1",
+    "aws-sdk": "^2.1261.0",
+    "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.3.1",
     "compression": "^1.7.4",
@@ -59,14 +59,14 @@
     "mongoose-slug-generator": "^1.0.4",
     "multer": "^1.4.2",
     "node-sass": "^6.0.1",
-    "passport": "^0.4.0",
+    "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-jwt": "^4.0.0",
     "rc-slider": "^9.7.2",
     "react": "^16.8.6",
     "react-autosuggest": "^10.1.0",
-    "react-bootstrap-table-next": "^3.1.5",
+    "react-bootstrap-table-next": "4.0.3",
     "react-bootstrap-table2-toolkit": "^2.0.1",
     "react-dom": "^16.8.6",
     "react-multi-carousel": "^2.5.5",
@@ -81,12 +81,12 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "simple-line-icons": "^2.4.1",
-    "socket.io": "^4.2.0",
+    "socket.io": "^4.5.4",
     "socket.io-client": "^4.2.0",
     "validatorjs": "^3.18.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "7.20.2",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
@@ -114,6 +114,6 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^4.2.1",
-    "webpack-pwa-manifest": "^4.0.0"
+    "webpack-pwa-manifest": "^4.3.0"
   }
 }
