@@ -21,7 +21,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/login": {
+    "/auth/login": {
      "post": {
        "tags": ["Authentication"],
        "summary": "Login to the app",
