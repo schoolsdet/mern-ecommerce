@@ -24,6 +24,8 @@ app.use(
 );
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, '../dist')));
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('./swagger.json');
 
 setupDB();
 require('./config/passport')(app);
@@ -36,6 +38,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, '../dist/index.html'));
   });
 }
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 
 const server = app.listen(port, () => {
   console.log(
