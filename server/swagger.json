@@ -9,15 +9,84 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "https://mern-ecommerce.sdet.school/api",
-  "basePath": "/",
+  "host": "mern-ecommerce.sdet.school",
+  "basePath": "/api",
   "tags": [
     {
-      "name": "Users",
+      "name": "Authentication",
       "description": "API for users in the system"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "consumes": ["application/json"],
-  "produces": ["application/json"]
+  "produces": ["application/json"],
+  "paths": {
+    "/login": {
+     "post": {
+       "tags": ["Authentication"],
+       "summary": "Login to the app",
+       "parameters": [{
+         "in": "body",
+         "name": "Login",
+         "description": "Credentials",
+         "schema": {
+           "$ref": "#/definitions/Credentials"
+         }
+       }],
+       "produces": ["application/json"],
+       "responses": {
+         "200": {
+           "description": "Logged to app",
+           "schema": {
+             "$ref": "#/definitions/LoginResponse"
+           }
+         }
+       }
+     }
+    }
+
+  },
+  "definitions": {
+    "Credentials": {
+      "required": ["email","password"],
+      "properties": {
+        "email":{
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginResponse": {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "object"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
 }
