@@ -30,7 +30,13 @@ swaggerDocument = require('./swagger.json');
 setupDB();
 require('./config/passport')(app);
 app.use(routes);
-
+const server = app.listen(port, () => {
+    console.log(
+        `${chalk.green('✓')} ${chalk.blue(
+            `Listening on port ${port}. Visit http://localhost:${port}/ in your browser.`
+        )}`
+    );
+});
 console.log('process.env.NODE_ENV ', process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
   app.use(compression());
@@ -43,13 +49,5 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocument)
 );
-
-const server = app.listen(port, () => {
-  console.log(
-    `${chalk.green('✓')} ${chalk.blue(
-      `Listening on port ${port}. Visit http://localhost:${port}/ in your browser.`
-    )}`
-  );
-});
 
 socket(server);
