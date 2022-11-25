@@ -151,7 +151,7 @@
         }
       }
     },
-    "/auth/reset/:token": {
+    "/auth/reset/{token}": {
       "post": {
         "tags": [
           "Authentication"
