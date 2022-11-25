@@ -27,7 +27,7 @@
        "summary": "Login to the app",
        "parameters": [{
          "in": "body",
-         "name": "Login",
+         "name": "Sign-in",
          "description": "Credentials",
          "schema": {
            "$ref": "#/definitions/Credentials"
@@ -44,11 +44,7 @@
          "400": {
            "description": "User not exist",
            "schema": {
-             "properties": {
-               "error": {
-                 "type": "string"
-               }
-             }
+             "$ref": "#/definitions/Error"
            }
          },
          "401": {
@@ -59,18 +55,83 @@
          }
        }
      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register new user",
+        "parameters": [{
+          "in": "body",
+          "name": "Sign-up",
+          "description": "User info",
+          "schema": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }],
+        "produces":["application/json"],
+        "responses": {
+          "201": {
+            "description": "Account created",
+            "schema": {
+              "$ref": "#/definitions/RegisterResponse"
+            }
+          },
+          "400": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "User already exist",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/auth/forgot": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Reset password",
+        "parameters": [{
+          "in": "body",
+          "name": "Reset",
+          "description": "Reset user password",
+          "schema": {
+            "$ref": "#/definitions/Email"
+          }
+        }],
+        "produces":["application/json"],
+        "responses": {
+          "200": {
+            "description": "Password reset link sent",
+            "schema": {
+              "$ref": "#/definitions/ResetResponse"
+            }
+          },
+          "400": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
-
   },
   "definitions": {
     "Credentials": {
       "required": ["email","password"],
       "properties": {
         "email":{
-          "type": "string"
+          "type": "string",
+          "example": "sim@email.com"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "example": "Password1"
         }
       }
     },
@@ -104,12 +165,104 @@
         }
       }
     },
-    "IncorrectPassword": {
+    "RegisterResponse": {
       "properties": {
         "success": {
           "type": "boolean"
         },
+        "subscribed": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "IncorrectPassword": {
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": false
+        },
         "error": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Error explanation"
+        }
+      }
+    },
+    "UserInfo": {
+      "required": ["isSubscribed","email","firstName","lastName","password"],
+      "properties": {
+        "isSubscribed": {
+          "type": "boolean",
+          "example": true
+        },
+        "email": {
+          "type": "string",
+          "example": "user@email.com"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Harold"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Olsen"
+        },
+        "password": {
+          "type": "string",
+          "example": "Password1"
+        }
+
+      }
+    },
+    "Email": {
+      "required": ["email"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "sim@email.com"
+        }
+      }
+    },
+    "ResetResponse": {
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Please check your email for the link to reset your password."
+        },
+        "resetToken": {
           "type": "string"
         }
       }

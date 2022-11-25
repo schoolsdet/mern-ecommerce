@@ -95,7 +95,7 @@ router.post('/register', async (req, res) => {
 
     if (existingUser) {
       return res
-        .status(400)
+        .status(409)
         .json({ error: 'That email address is already in use.' });
     }
 
@@ -132,7 +132,7 @@ router.post('/register', async (req, res) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: tokenLife });
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       subscribed,
       token: `Bearer ${token}`,
@@ -186,7 +186,8 @@ router.post('/forgot', async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: 'Please check your email for the link to reset your password.'
+      message: 'Please check your email for the link to reset your password.',
+      resetToken,
     });
   } catch (error) {
     res.status(400).json({
