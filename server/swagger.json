@@ -175,7 +175,8 @@
                 "required": ["password"],
                 "properties": {
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Password1"
                   }
                 }
               }
