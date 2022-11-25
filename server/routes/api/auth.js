@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
         error: 'Password Incorrect'
       });
@@ -116,9 +116,7 @@ router.post('/register', async (req, res) => {
     });
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(user.password, salt);
-
-    user.password = hash;
+    user.password = await bcrypt.hash(user.password, salt);
     const registeredUser = await user.save();
 
     const payload = {
@@ -218,9 +216,7 @@ router.post('/reset/:token', async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-
-    resetUser.password = hash;
+    resetUser.password = await bcrypt.hash(password, salt);
     resetUser.resetPasswordToken = undefined;
     resetUser.resetPasswordExpires = undefined;
 
@@ -269,8 +265,7 @@ router.post('/reset', auth, async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(confirmPassword, salt);
-    existingUser.password = hash;
+    existingUser.password = await bcrypt.hash(confirmPassword, salt);
     existingUser.save();
 
     await mailgun.sendEmail(existingUser.email, 'reset-confirmation');
@@ -313,7 +308,7 @@ router.get(
       // TODO duplicate variable name. variable name conflict with module instance
 
       const htmlWithEmbeddedJWT = `
-    <html>
+    <html lang="en">
       <script>
         // Save JWT to localStorage
         window.localStorage.setItem('token', '${jwt}');
@@ -351,7 +346,7 @@ router.get(
       const jwt = `Bearer ${token}`;
 
       const htmlWithEmbeddedJWT = `
-    <html>
+    <html lang="en">
       <script>
         // Save JWT to localStorage
         window.localStorage.setItem('token', '${jwt}');

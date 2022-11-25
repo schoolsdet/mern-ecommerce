@@ -40,6 +40,22 @@
            "schema": {
              "$ref": "#/definitions/LoginResponse"
            }
+         },
+         "400": {
+           "description": "User not exist",
+           "schema": {
+             "properties": {
+               "error": {
+                 "type": "string"
+               }
+             }
+           }
+         },
+         "401": {
+           "description": "Incorrect Password",
+           "schema": {
+             "$ref": "#/definitions/IncorrectPassword"
+           }
          }
        }
      }
@@ -73,7 +89,7 @@
               "type": "string"
             },
             "firstName": {
-              "type": "object"
+              "type": "string"
             },
             "lastName": {
               "type": "string"
@@ -85,6 +101,16 @@
               "type": "string"
             }
           }
+        }
+      }
+    },
+    "IncorrectPassword": {
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "error": {
+          "type": "string"
         }
       }
     }
