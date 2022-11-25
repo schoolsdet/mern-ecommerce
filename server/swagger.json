@@ -1,87 +1,117 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.3",
   "info": {
     "version": "1.0.0",
     "title": "SDET School MERN store",
-    "description": "SWAGGER API Documentation for Students of SDET School",
+    "description": "SWAGGER API Documentation for Students of SDET School"
   },
-  "host": "mern-ecommerce.sdet.school",
-  "basePath": "/api",
+  "servers": [
+    {
+      "url": "mern-ecommerce.sdet.school/api"
+    }
+  ],
   "tags": [
     {
       "name": "Authentication",
       "description": "API for users in the system"
     }
   ],
-  "schemes": ["https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
   "paths": {
     "/auth/login": {
-     "post": {
-       "tags": ["Authentication"],
-       "summary": "Login to the app",
-       "parameters": [{
-         "in": "body",
-         "name": "Sign-in",
-         "description": "Credentials",
-         "schema": {
-           "$ref": "#/definitions/Credentials"
-         }
-       }],
-       "produces": ["application/json"],
-       "responses": {
-         "200": {
-           "description": "Logged to app",
-           "schema": {
-             "$ref": "#/definitions/LoginResponse"
-           }
-         },
-         "400": {
-           "description": "User not exist",
-           "schema": {
-             "$ref": "#/definitions/Error"
-           }
-         },
-         "401": {
-           "description": "Incorrect Password",
-           "schema": {
-             "$ref": "#/definitions/IncorrectPassword"
-           }
-         }
-       }
-     }
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login to the app",
+        "requestBody": {
+          "description": "Credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logged to app",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncorrectPassword"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/auth/register": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Register new user",
-        "parameters": [{
-          "in": "body",
-          "name": "Sign-up",
+        "requestBody": {
           "description": "User info",
-          "schema": {
-            "$ref": "#/definitions/UserInfo"
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInfo"
+              }
+            }
           }
-        }],
-        "produces":["application/json"],
+        },
         "responses": {
           "201": {
             "description": "Account created",
-            "schema": {
-              "$ref": "#/definitions/RegisterResponse"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
             }
           },
           "400": {
             "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
             }
           },
           "409": {
             "description": "User already exist",
-            "schema": {
-              "$ref": "#/definitions/Error"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
             }
           }
         }
@@ -89,50 +119,47 @@
     },
     "/auth/forgot": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Reset password",
-        "parameters": [{
-          "in": "body",
-          "name": "Reset",
+        "requestBody": {
           "description": "Reset user password",
-          "schema": {
-            "$ref": "#/definitions/Email"
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Email"
+              }
+            }
           }
-        }],
-        "produces":["application/json"],
+        },
         "responses": {
           "200": {
             "description": "Password reset link sent",
-            "schema": {
-              "$ref": "#/definitions/ResetResponse"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetResponse"
+                }
+              }
             }
           },
           "400": {
             "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
             }
           }
         }
       }
     },
-    "/auth/reset/{token}": {
-      "post": {
-        "parameters": [{
-          "in": "body",
-          "name": "newPassword",
-          "description": "New Password",
-          "required": true,
-          "schema": {
-            "required": ["password"],
-            "properties": {
-              "password": {
-                "type": "string"
-
-              }
-            }
-          }
-        },{
+    "/auth/reset/:token": {
+      "parameters": [
+        {
           "in": "path",
           "name": "token",
           "description": "Reset token",
@@ -140,179 +167,215 @@
             "type": "string"
           },
           "required": true
-        }],
-        "produces":["application/json"],
+        }
+      ],
+      "post": {
+        "requestBody": {
+          "description": "New Password",
+          "content": {
+            "application/json":{
+              "schema": {
+                "required": ["password"],
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Password changed",
-            "schema": {
-              "$ref": "#/definitions/Success"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
             }
           },
           "400": {
             "description": "Error",
-            "schema": {
-              "$ref": "#/definitions/Error"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
             }
           }
         }
       }
     }
   },
-  "definitions": {
-    "Credentials": {
-      "required": ["email","password"],
-      "properties": {
-        "email":{
-          "type": "string",
-          "example": "sim@email.com"
-        },
-        "password": {
-          "type": "string",
-          "example": "Password1"
+  "components": {
+    "schemas": {
+      "Credentials": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "sim@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "Password1"
+          }
         }
-      }
-    },
-    "LoginResponse": {
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "token": {
-          "type": "string"
-        },
-        "user": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "role": {
-              "type": "string"
+      },
+      "LoginResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
             }
           }
         }
-      }
-    },
-    "RegisterResponse": {
-      "properties": {
-        "success": {
-          "type": "boolean"
-        },
-        "subscribed": {
-          "type": "boolean"
-        },
-        "token": {
-          "type": "string"
-        },
-        "user": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "role": {
-              "type": "string"
+      },
+      "RegisterResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "subscribed": {
+            "type": "boolean"
+          },
+          "token": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
             }
           }
         }
-      }
-    },
-    "IncorrectPassword": {
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "example": false
-        },
-        "error": {
-          "type": "string"
+      },
+      "IncorrectPassword": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "Error": {
-      "properties": {
-        "error": {
-          "type": "string",
-          "example": "Error explanation"
+      },
+      "Error": {
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Error explanation"
+          }
         }
-      }
-    },
-    "UserInfo": {
-      "required": ["isSubscribed","email","firstName","lastName","password"],
-      "properties": {
-        "isSubscribed": {
-          "type": "boolean",
-          "example": true
-        },
-        "email": {
-          "type": "string",
-          "example": "user@email.com"
-        },
-        "firstName": {
-          "type": "string",
-          "example": "Harold"
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Olsen"
-        },
-        "password": {
-          "type": "string",
-          "example": "Password1"
+      },
+      "UserInfo": {
+        "required": [
+          "isSubscribed",
+          "email",
+          "firstName",
+          "lastName",
+          "password"
+        ],
+        "properties": {
+          "isSubscribed": {
+            "type": "boolean",
+            "example": true
+          },
+          "email": {
+            "type": "string",
+            "example": "user@email.com"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Harold"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Olsen"
+          },
+          "password": {
+            "type": "string",
+            "example": "Password1"
+          }
         }
-
-      }
-    },
-    "Email": {
-      "required": ["email"],
-      "properties": {
-        "email": {
-          "type": "string",
-          "example": "sim@email.com"
+      },
+      "Email": {
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "sim@email.com"
+          }
         }
-      }
-    },
-    "ResetResponse": {
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "example": true
-        },
-        "message": {
-          "type": "string",
-          "example": "Please check your email for the link to reset your password."
-        },
-        "resetToken": {
-          "type": "string"
+      },
+      "ResetResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Please check your email for the link to reset your password."
+          },
+          "resetToken": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "Success": {
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "example": true
-        },
-        "message": {
-          "type": "string"
+      },
+      "Success": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string"
+          }
         }
       }
     }
