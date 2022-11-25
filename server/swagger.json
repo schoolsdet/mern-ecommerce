@@ -4,10 +4,6 @@
     "version": "1.0.0",
     "title": "SDET School MERN store",
     "description": "SWAGGER API Documentation for Students of SDET School",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
   },
   "host": "mern-ecommerce.sdet.school",
   "basePath": "/api",
@@ -109,6 +105,48 @@
             "description": "Password reset link sent",
             "schema": {
               "$ref": "#/definitions/ResetResponse"
+            }
+          },
+          "400": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset/{token}": {
+      "post": {
+        "parameters": [{
+          "in": "body",
+          "name": "newPassword",
+          "description": "New Password",
+          "required": true,
+          "schema": {
+            "required": ["password"],
+            "properties": {
+              "password": {
+                "type": "string"
+
+              }
+            }
+          }
+        },{
+          "in": "path",
+          "name": "token",
+          "description": "Reset token",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }],
+        "produces":["application/json"],
+        "responses": {
+          "200": {
+            "description": "Password changed",
+            "schema": {
+              "$ref": "#/definitions/Success"
             }
           },
           "400": {
@@ -263,6 +301,17 @@
           "example": "Please check your email for the link to reset your password."
         },
         "resetToken": {
+          "type": "string"
+        }
+      }
+    },
+    "Success": {
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
           "type": "string"
         }
       }
