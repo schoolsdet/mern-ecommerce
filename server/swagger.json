@@ -7,13 +7,7 @@
   },
   "servers": [
     {
-      "url": "mern-ecommerce.sdet.school/api"
-    }
-  ],
-  "tags": [
-    {
-      "name": "Authentication",
-      "description": "API for users in the system"
+      "url": "https://mern-ecommerce.sdet.school/api"
     }
   ],
   "paths": {
@@ -158,18 +152,21 @@
       }
     },
     "/auth/reset/:token": {
-      "parameters": [
-        {
-          "in": "path",
-          "name": "token",
-          "description": "Reset token",
-          "schema": {
-            "type": "string"
-          },
-          "required": true
-        }
-      ],
       "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "description": "Reset token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
         "requestBody": {
           "description": "New Password",
           "content": {
