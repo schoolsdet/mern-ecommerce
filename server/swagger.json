@@ -206,6 +206,47 @@
           }
         }
       }
+    },
+    "/auth/reset": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Change password",
+        "description": "Change password",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -362,6 +403,21 @@
           },
           "resetToken": {
             "type": "string"
+          }
+        }
+      },
+      "ResetPassword": {
+        "required": ["password","confirmPassword"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "Old password",
+            "example": "old_password"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "New password",
+            "example": "new_password"
           }
         }
       },
