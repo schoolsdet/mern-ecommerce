@@ -156,6 +156,7 @@
         "tags": [
           "Authentication"
         ],
+        "summary": "Enter new password after reset",
         "parameters": [
           {
             "in": "path",
@@ -431,6 +432,13 @@
             "type": "string"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
