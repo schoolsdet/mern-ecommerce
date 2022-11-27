@@ -248,6 +248,206 @@
           }
         }
       }
+    },
+    "/address": {
+      "get": {
+        "tags": ["Address"],
+        "summary": "Get user addresses",
+        "description": "Get user addresses",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Array of addresses",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/address/add": {
+      "post": {
+        "tags": ["Address"],
+        "summary": "Add user address",
+        "description": "Add user address",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Address added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressCreateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/address/{id}": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "get": {
+        "tags": ["Address"],
+        "summary": "Get user address by id",
+        "description": "Get user address by id",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Address by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Address"],
+        "summary": "Update user address by id",
+        "description": "Update user address by id",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "description": "Updated address",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/address/delete/{id}":{
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "delete": {
+        "tags": ["Address"],
+        "summary": "Delete user address by id",
+        "description": "Delete user address by id",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          }
+
+        }
+      }
     }
   },
   "components": {
@@ -430,6 +630,129 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "AddressResponse": {
+        "properties": {
+          "isDefault": {
+            "type": "boolean"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "Address": {
+        "properties": {
+          "isDefault": {
+            "type": "boolean"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        }
+      },
+      "AddressCreateResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "address": {
+            "properties": {
+              "isDefault": {
+                "type": "boolean"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "zipCode": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AddressDeleteResponse": {
+        "properties": {
+          "success":{
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "address": {
+            "properties": {
+              "n": {
+                "type": "integer"
+              },
+              "ok": {
+                "type": "integer"
+              },
+              "deletedCount": {
+                "type": "integer"
+              }
+            }
           }
         }
       }

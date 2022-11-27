@@ -16,7 +16,7 @@ router.post('/add', auth, async (req, res) => {
     });
     const addressDoc = await address.save();
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: `Address has been added successfully!`,
       address: addressDoc
