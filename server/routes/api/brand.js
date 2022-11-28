@@ -32,7 +32,7 @@ router.post(
 
       const brandDoc = await brand.save();
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         message: `Brand has been added successfully!`,
         brand: brandDoc

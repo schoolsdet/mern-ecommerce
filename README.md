@@ -112,8 +112,20 @@ $ npm start
       "prettier.arrowParens": "avoid",
       "prettier.jsxSingleQuote": true,
       "prettier.trailingComma": "none",
-      "javascript.preferences.quoteStyle": "single",
+      "javascript.preferences.quoteStyle": "single"
     }
 
+```
+
+## Local run
+```text
+docker-compose --file .\docker-compose-local.yaml up -d --no-deps --build
+```
+
+for local debugging use
+```text
+docker ps -a 
+
+docker logs <CONTAINER_ID, ex: 0528d3072510>
 ```
 

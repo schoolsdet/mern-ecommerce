@@ -296,7 +296,7 @@
           "content": {
             "application/json":{
               "schema": {
-                "$ref": "#/components/schemas/Address"
+                "$ref": "#/components/schemas/AddAddress"
               }
             }
           }
@@ -390,7 +390,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Address"
+                "$ref": "#/components/schemas/AddAddress"
               }
             }
           }
@@ -457,6 +457,168 @@
             }
           }
         }
+      }
+    },
+    "/brand/add": {
+      "post": {
+        "tags": ["Brand"],
+        "summary": "Add new brand",
+        "description": "Add new brand",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBrand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add new brand",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBrandResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brand/list": {
+      "get": {
+        "tags": ["Brand"],
+        "summary": "List all brands",
+        "description": "List all brands",
+        "responses": {
+          "200": {
+            "description": "List all brands",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "brands": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AddBrandResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brand/{id}": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "get": {
+        "tags": ["Brand"],
+        "summary": "Get Brand",
+        "description": "Returns brands products",
+        "responses": {
+          "200": {
+            "description": "Brand's products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductResponse"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "pages": {
+                      "type": "integer"
+                    },
+                    "totalProducts": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Brand not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/merchant/add": {
+      "post": {
+        "tags": ["Merchant"],
+        "summary": "Add merchant",
+        "description": "Add merchant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMerchant"
+              }
+            }
+          }
+        }
+
       }
     }
   },
@@ -677,7 +839,7 @@
           }
         }
       },
-      "Address": {
+      "AddAddress": {
         "properties": {
           "isDefault": {
             "type": "boolean"
@@ -763,6 +925,135 @@
                 "type": "integer"
               }
             }
+          }
+        }
+      },
+      "AddBrand": {
+        "required": ["name","description","isActive"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AddBrandResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "brand": {
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              },
+              "merchant": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "ProductResponse": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "taxable": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "brand": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              }
+            }
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageKey": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+
+      "AddMerchant": {
+        "required": ["name", "business", "phoneNumber", "email", "brand"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "business": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
           }
         }
       }
