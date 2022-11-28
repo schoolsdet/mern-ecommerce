@@ -617,8 +617,29 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Add Merchant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddMerchantResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
         }
-
       }
     }
   },
@@ -1056,7 +1077,53 @@
             "type": "string"
           }
         }
+      },
+      "AddMerchantResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "merchant": {
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "business": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+
       }
+
     },
     "securitySchemes": {
       "bearerAuth": {
