@@ -158,7 +158,7 @@ router.put('/approve/:id', auth, async (req, res) => {
       new: true
     });
 
-    await createMerchantUser(
+    const token = await createMerchantUser(
       merchantDoc.email,
       merchantDoc.name,
       merchantId,
@@ -166,7 +166,8 @@ router.put('/approve/:id', auth, async (req, res) => {
     );
 
     res.status(200).json({
-      success: true
+      success: true,
+      token
     });
   } catch (error) {
     res.status(400).json({
@@ -307,9 +308,10 @@ const createMerchantUser = async (email, name, merchant, host) => {
 
     await mailgun.sendEmail(email, 'merchant-welcome', null, name);
 
-    return await User.findOneAndUpdate(query, update, {
+    await User.findOneAndUpdate(query, update, {
       new: true
     });
+    return null;
   } else {
     const buffer = await crypto.randomBytes(48);
     const resetToken = buffer.toString('hex');
@@ -328,8 +330,8 @@ const createMerchantUser = async (email, name, merchant, host) => {
       resetToken,
       email
     });
-
-    return await user.save();
+    await user.save();
+    return resetToken;
   }
 };
 

@@ -8,6 +8,9 @@
   "servers": [
     {
       "url": "https://mern-ecommerce.sdet.school/api"
+    },
+    {
+      "url": "http://localhost:4005/api"
     }
   ],
   "paths": {
@@ -641,6 +644,306 @@
           }
         }
       }
+    },
+    "/merchant/search": {
+      "parameters": [{
+        "in": "query",
+        "name": "search",
+        "schema": {
+          "type": "string"
+        },
+        "required": true
+      }],
+      "get": {
+        "tags": ["Merchant"],
+        "summary": "Search merchant",
+        "description": "Search merchant",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Locate merchant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MerchantResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/merchant": {
+      "parameters": [{
+        "in": "query",
+        "name": "page",
+        "schema": {
+          "type": "integer",
+          "example": 1
+        },
+        "required": true
+      },
+      {
+        "in": "query",
+        "name": "limit",
+        "schema": {
+          "type": "integer",
+          "example": 10
+        },
+        "required": true
+      }],
+      "get": {
+        "tags": ["Merchant"],
+        "summary": "Get all merchants",
+        "description": "Get all merchants",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Array of merchants",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MerchantResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/merchant/{id}/active": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "description": "Merchant id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "put": {
+        "tags": ["Merchant"],
+        "summary": "Activate/Disable merchant",
+        "description": "Activate/Disable merchant",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "requestBody": {
+          "description": "Activate/Disable merchant",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "merchant": {
+                    "properties": {
+                      "isActive": {
+                        "type": "boolean",
+                        "required": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/merchant/approve/{id}": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "put": {
+        "tags": ["Merchant"],
+        "summary": "Approve merchant",
+        "description": "Approve merchant",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Approve merchant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/merchant/reject/{id}": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "string",
+          "required": true
+        }
+      }],
+      "put": {
+        "tags": ["Merchant"],
+        "summary": "Reject merchant",
+        "description": "Reject merchant",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "responses": {
+          "200": {
+            "description": "Reject merchant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/merchant/signup/{token}": {
+      "parameters": [{
+        "in": "path",
+        "name": "token",
+        "schema": {
+          "type": "string"
+        }
+      }],
+      "post": {
+        "tags": ["Merchant"],
+        "summary": "Sign up merchant",
+        "description": "Sign up merchant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MerchantSignUp"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Merchant SignUp",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1121,7 +1424,57 @@
             }
           }
         }
-
+      },
+      "MerchantResponse": {
+        "properties": {
+          "isActive": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "business": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "MerchantSignUp": {
+        "required": ["email", "firstName", "lastName", "password"],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
       }
 
     },
