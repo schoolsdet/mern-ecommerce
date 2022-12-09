@@ -39,9 +39,9 @@ router.post('/add', (req, res) => {
 
     await mailgun.sendEmail(email, 'contact');
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
-      message: `We receved your message, we will reach you on your email address ${email}!`,
+      message: `We received your message, we will reach you on your email address ${email}!`,
       contact: data
     });
   });

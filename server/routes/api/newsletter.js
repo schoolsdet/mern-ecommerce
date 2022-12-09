@@ -19,7 +19,7 @@ router.post('/subscribe', async (req, res) => {
 
   await mailgun.sendEmail(email, 'newsletter-subscription');
 
-  res.status(200).json({
+  res.status(201).json({
     success: true,
     message: 'You have successfully subscribed to the newsletter'
   });

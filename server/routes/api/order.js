@@ -42,7 +42,7 @@ router.post('/add', auth, async (req, res) => {
 
     await mailgun.sendEmail(order.user.email, 'order-confirmation', newOrder);
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: `Your order has been placed successfully!`,
       order: { _id: orderDoc._id }
@@ -65,7 +65,7 @@ router.get('/search', auth, async (req, res) => {
       });
     }
 
-    let ordersDoc = null;
+    let ordersDoc;
 
     if (req.user.role === role.ROLES.Admin) {
       ordersDoc = await Order.find({
@@ -139,7 +139,7 @@ router.get('/', auth, async (req, res) => {
           }
         }
       })
-      .limit(limit * 1)
+      .limit(limit)
       .skip((page - 1) * limit)
       .exec();
 
@@ -177,7 +177,7 @@ router.get('/me', auth, async (req, res) => {
           }
         }
       })
-      .limit(limit * 1)
+      .limit(limit)
       .skip((page - 1) * limit)
       .exec();
 
@@ -202,7 +202,7 @@ router.get('/:orderId', auth, async (req, res) => {
   try {
     const orderId = req.params.orderId;
 
-    let orderDoc = null;
+    let orderDoc;
 
     if (req.user.role === role.ROLES.Admin) {
       orderDoc = await Order.findOne({ _id: orderId }).populate({
@@ -284,7 +284,7 @@ router.put('/status/item/:itemId', auth, async (req, res) => {
     const status = req.body.status || 'Cancelled';
 
     const foundCart = await Cart.findOne({ 'products._id': itemId });
-    const foundCartProduct = foundCart.products.find(p => p._id == itemId);
+    const foundCartProduct = foundCart.products.find(p => p._id === itemId);
 
     await Cart.updateOne(
       { 'products._id': itemId },

@@ -104,7 +104,7 @@
           "409": {
             "description": "User already exist",
             "content": {
-              "application/json":{
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -155,28 +155,27 @@
       }
     },
     "/auth/reset/{token}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "token",
+          "description": "Reset token",
+          "required": true
+        }
+      ],
       "post": {
         "tags": [
           "Authentication"
         ],
         "summary": "Enter new password after reset",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "token",
-            "description": "Reset token",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
         "requestBody": {
           "description": "New Password",
           "content": {
-            "application/json":{
+            "application/json": {
               "schema": {
-                "required": ["password"],
+                "required": [
+                  "password"
+                ],
                 "properties": {
                   "password": {
                     "type": "string",
@@ -213,12 +212,16 @@
     },
     "/auth/reset": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Change password",
         "description": "Change password",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -262,20 +265,23 @@
         }
       }
     },
-
     "/address": {
       "get": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "summary": "Get user addresses",
         "description": "Get user addresses",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of addresses",
             "content": {
-              "application/json":{
+              "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
@@ -310,15 +316,19 @@
     },
     "/address/add": {
       "post": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "summary": "Add user address",
         "description": "Add user address",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
-            "application/json":{
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddAddress"
               }
@@ -360,21 +370,25 @@
       }
     },
     "/address/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Address id",
           "required": true
         }
-      }],
+      ],
       "get": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "summary": "Get user address by id",
         "description": "Get user address by id",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Address by id",
@@ -423,12 +437,16 @@
         }
       },
       "put": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "summary": "Update user address by id",
         "description": "Update user address by id",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "description": "Updated address",
           "content": {
@@ -463,22 +481,26 @@
         }
       }
     },
-    "/address/delete/{id}":{
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string",
+    "/address/delete/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Address id",
           "required": true
         }
-      }],
+      ],
       "delete": {
-        "tags": ["Address"],
+        "tags": [
+          "Address"
+        ],
         "summary": "Delete user address by id",
         "description": "Delete user address by id",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Delete address",
@@ -513,15 +535,18 @@
         }
       }
     },
-
     "/brand/add": {
       "post": {
-        "tags": ["Brand"],
+        "tags": [
+          "Brand"
+        ],
         "summary": "Add new brand",
         "description": "Add new brand",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -567,7 +592,9 @@
     },
     "/brand/list": {
       "get": {
-        "tags": ["Brand"],
+        "tags": [
+          "Brand"
+        ],
         "summary": "List all brands",
         "description": "List all brands",
         "responses": {
@@ -601,14 +628,64 @@
         }
       }
     },
-    "/brand": {
+    "/brand/list/select": {
       "get": {
-        "tags": ["Brand"],
+        "tags": [
+          "Brand"
+        ],
         "summary": "Brands by merchant",
         "description": "Brands by merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Brands names and ids",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/brand": {
+      "get": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Brands by merchant",
+        "description": "Brands by merchant",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Brand by merchant",
@@ -641,16 +718,18 @@
       }
     },
     "/brand/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Brand id",
           "required": true
         }
-      }],
+      ],
       "get": {
-        "tags": ["Brand"],
+        "tags": [
+          "Brand"
+        ],
         "summary": "Get Brand",
         "description": "Returns brands products",
         "responses": {
@@ -705,12 +784,706 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Update brand",
+        "description": "Update brand",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BrandUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Brand updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     },
+    "/brand/delete/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Brand id"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Brand"
+        ],
+        "summary": "Delete brand by id",
+        "description": "Delete brand by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete brand by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/add": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create cart",
+        "description": "Create cart",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cart Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCartResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/delete/{cartId}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "cartId",
+          "required": true,
+          "description": "Cart id"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create cart",
+        "description": "Create cart",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/add/{cartId}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "cartId",
+          "description": "Cart id",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Add to cart",
+        "description": "Add to cart",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/delete/{cartId}/{productId}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "cartId",
+          "description": "Cart id",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "productId",
+          "description": "Product id",
+          "required": true
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Delete product from cart",
+        "description": "Delete product from cart",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/add": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Add category",
+        "description": "Add category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddCategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
 
+        }
+      }
+    },
+    "/category/list": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "List all categories",
+        "description": "List all categories",
+        "responses": {
+          "200": {
+            "description": "List all categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CategoryResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "List all categories",
+        "description": "List all categories",
+        "responses": {
+          "200": {
+            "description": "List all categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CategoryResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "parameters": [{
+        "in": "path",
+        "description": "Category id",
+        "name": "id",
+        "required": true
+      }],
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "List all categories",
+        "description": "List all categories",
+        "responses": {
+          "200": {
+            "description": "Get single category by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Update category",
+        "description": "Update category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{id}/active": {
+      "parameters": [{
+        "in": "path",
+        "description": "Category id",
+        "name": "id",
+        "required": true
+      }],
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Activate/Disable category",
+        "description": "Activate/Disable category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryActivate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category Disable/Active",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/delete/{id}": {
+      "parameters": [{
+        "in": "path",
+        "name": "id",
+        "description": "Category id",
+        "required": true
+      }],
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Activate/Disable category",
+        "description": "Activate/Disable category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/add": {
+      "post": {
+        "tags": [
+          "Contact"
+        ],
+        "summary": "Add Contact message",
+        "description": "Add Contact message",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddContact"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add contact info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddContactResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/newsletter/subscribe": {
+      "post": {
+        "tags": [
+          "Newsletter"
+        ],
+        "summary": "Subscribe to newsletter",
+        "description": "Subscribe to newsletter",
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Subscribed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/merchant/add": {
       "post": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Add merchant",
         "description": "Add merchant",
         "requestBody": {
@@ -747,21 +1520,27 @@
       }
     },
     "/merchant/search": {
-      "parameters": [{
-        "in": "query",
-        "name": "search",
-        "schema": {
-          "type": "string"
-        },
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "search",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
       "get": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Search merchant",
         "description": "Search merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Locate merchant",
@@ -800,31 +1579,37 @@
       }
     },
     "/merchant": {
-      "parameters": [{
-        "in": "query",
-        "name": "page",
-        "schema": {
-          "type": "integer",
-          "example": 1
+      "parameters": [
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "integer",
+            "example": 1
+          },
+          "required": true
         },
-        "required": true
-      },
-      {
-        "in": "query",
-        "name": "limit",
-        "schema": {
-          "type": "integer",
-          "example": 10
-        },
-        "required": true
-      }],
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "example": 10
+          },
+          "required": true
+        }
+      ],
       "get": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Get all merchants",
         "description": "Get all merchants",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of merchants",
@@ -863,22 +1648,25 @@
       }
     },
     "/merchant/{id}/active": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "description": "Merchant id",
-        "schema": {
-          "type": "string",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Merchant id",
           "required": true
         }
-      }],
+      ],
       "put": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Activate/Disable merchant",
         "description": "Activate/Disable merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "description": "Activate/Disable merchant",
           "content": {
@@ -937,21 +1725,25 @@
       }
     },
     "/merchant/approve/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string",
-          "required": true
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Merchant id"
         }
-      }],
+      ],
       "put": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Approve merchant",
         "description": "Approve merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Approve merchant",
@@ -994,21 +1786,25 @@
       }
     },
     "/merchant/reject/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string",
-          "required": true
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Merchant id"
         }
-      }],
+      ],
       "put": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Reject merchant",
         "description": "Reject merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Reject merchant",
@@ -1048,15 +1844,18 @@
       }
     },
     "/merchant/signup/{token}": {
-      "parameters": [{
-        "in": "path",
-        "name": "token",
-        "schema": {
-          "type": "string"
+      "parameters": [
+        {
+          "in": "path",
+          "name": "token",
+          "required": true,
+          "description": "Token from mail"
         }
-      }],
+      ],
       "post": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Sign up merchant",
         "description": "Sign up merchant",
         "requestBody": {
@@ -1097,20 +1896,25 @@
       }
     },
     "/merchant/delete/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "schema": {
-          "type": "string"
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "Merchant id"
         }
-      }],
+      ],
       "delete": {
-        "tags": ["Merchant"],
+        "tags": [
+          "Merchant"
+        ],
         "summary": "Delete merchant",
         "description": "Delete merchant",
-        "security": [{
-          "bearerAuth": []
-        }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Delete merchant",
@@ -1142,7 +1946,768 @@
               }
             }
           }
+        }
+      }
+    },
+    "/order/add": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Add order",
+        "description": "Add order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddOrderResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/search": {
+      "parameters": [{
+        "in": "query",
+        "name": "search",
+        "required": true,
+        "description": "search param"
+      }],
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Add order",
+        "description": "Add order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order search result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "parameters": [{
+        "in": "query",
+        "name": "page",
+        "description": "Page number",
+        "required": true,
+        "example": 1
+      },{
+        "in": "query",
+        "name": "limit",
+        "description": "number or orders on the page",
+        "required": true,
+        "example": 20
+      }],
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Add order",
+        "description": "Add order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/me": {},
+    "/order/{orderId}": {},
+    "/order/cancel/{orderId}": {},
+    "/order/status/item/{itemId}": {},
 
+    "/product/item/{slug}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "slug",
+          "required": true,
+          "description": "Product slug"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get product by slug",
+        "description": "Get product by slug",
+        "responses": {
+          "200": {
+            "description": "Get product by slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSlugResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/list/search/{name}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "name",
+          "required": true,
+          "description": "Product name"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Search product by name",
+        "description": "Search product by name",
+        "responses": {
+          "200": {
+            "description": "Search by product name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductSearchResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/list/": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "example": "all"
+          }
+        },
+        {
+          "in": "query",
+          "name": "category",
+          "schema": {
+            "type": "string",
+            "example": "all"
+          }
+        },
+        {
+          "in": "query",
+          "name": "brand",
+          "schema": {
+            "type": "string",
+            "example": "all"
+          }
+        },
+        {
+          "in": "query",
+          "name": "min",
+          "schema": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        {
+          "in": "query",
+          "name": "max",
+          "schema": {
+            "type": "integer",
+            "example": 2500
+          }
+        },
+        {
+          "in": "query",
+          "name": "rating",
+          "schema": {
+            "type": "integer",
+            "example": 0
+          }
+        },
+        {
+          "in": "query",
+          "name": "order",
+          "schema": {
+            "type": "integer",
+            "example": 0
+          }
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "integer",
+            "example": 10
+          }
+        },
+        {
+          "in": "query",
+          "name": "sortOrder",
+          "schema": {
+            "type": "string",
+            "example": "{\"_id\":-1}"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Search product",
+        "description": "Search product",
+        "responses": {
+          "200": {
+            "description": "products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductResponse"
+                      }
+                    },
+                    "totalPages": {
+                      "type": "integer"
+                    },
+                    "currentPage": {
+                      "type": "integer"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/list/brand/{slug}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "slug",
+          "required": true,
+          "description": "Brand slug"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "List brands by slug",
+        "description": "List brands by slug",
+        "responses": {
+          "200": {
+            "description": "List product by brand slug",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductBrandSlugResponse"
+                      }
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "pages": {
+                      "type": "integer"
+                    },
+                    "totalProducts": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/list/select": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "List select product",
+        "description": "List select product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List select product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductListSelectResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/add": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Add product",
+        "description": "Add product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProduct"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all products with full product info",
+        "description": "Get all products with full product info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProductFullResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "description": "productId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get single products with full product info",
+        "description": "Get single products with full product info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update single products with full product info",
+        "description": "Update single products with full product info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/{id}/active": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Product id",
+          "required": true
+        }
+      ],
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Activate/Disable product",
+        "description": "Activate/Disable product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductActivate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activate status updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/delete/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "description": "Product id",
+          "name": "id",
+          "required": true
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete product",
+        "description": "Delete product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -1305,7 +2870,10 @@
         }
       },
       "ResetPassword": {
-        "required": ["password","confirmPassword"],
+        "required": [
+          "password",
+          "confirmPassword"
+        ],
         "properties": {
           "password": {
             "type": "string",
@@ -1432,7 +3000,7 @@
       },
       "AddressDeleteResponse": {
         "properties": {
-          "success":{
+          "success": {
             "type": "boolean"
           },
           "message": {
@@ -1454,7 +3022,12 @@
         }
       },
       "AddBrand": {
-        "required": ["name","description","isActive"],
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "isActive"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -1507,6 +3080,232 @@
       },
       "ProductResponse": {
         "properties": {
+          "taxable": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "brand": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              }
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageKey": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "example": "2022-11-30T01:25:25.197Z"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "ProductIdResponse": {
+        "properties": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "taxable": {
+                "type": "boolean"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "brand": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "_id": {
+                "type": "string"
+              },
+              "sku": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "number"
+              },
+              "imageUrl": {
+                "type": "string"
+              },
+              "imageKey": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "example": "2022-11-30T01:25:25.197Z"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "ProductFullResponse": {
+        "type": "object",
+        "properties": {
+          "taxable": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "brand": {
+            "type": "object",
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              },
+              "merchant": {
+                "type": "object",
+                "properties": {
+                  "isActive": {
+                    "type": "boolean"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "Approved"
+                  },
+                  "_id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "business": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "type": "string",
+                    "description": "Brand name"
+                  },
+                  "created": {
+                    "type": "string",
+                    "example": "2022-11-30T01:25:25.197Z"
+                  },
+                  "__v": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string",
+                "example": "2022-11-30T01:25:25.197Z"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageKey": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "example": "2022-11-30T01:25:25.197Z"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "ProductSlugResponse": {
+        "properties": {
           "_id": {
             "type": "string"
           },
@@ -1526,6 +3325,9 @@
               },
               "isActive": {
                 "type": "boolean"
+              },
+              "slug": {
+                "type": "string"
               }
             }
           },
@@ -1551,7 +3353,210 @@
             "type": "string"
           },
           "created": {
+            "type": "string",
+            "example": "2022-11-30T01:25:25.197Z"
+          },
+          "slug": {
             "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "ProductBrandSlugResponse": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "taxable": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "brand": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              }
+            }
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageKey": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "example": "2022-11-30T01:25:25.197Z"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "ProductSearchResponse": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductListSelectResponse": {
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ProductDeleteResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "n": {
+                "type": "integer"
+              },
+              "ok": {
+                "type": "integer"
+              },
+              "deletedCount": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AddProduct": {
+        "type": "object",
+        "required": [
+          "description",
+          "name",
+          "quantity",
+          "price",
+          "sku"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "taxable": {
+            "type": "integer"
+          },
+          "brand": {
+            "type": "string",
+            "description": "Brand id"
+          }
+        }
+      },
+      "AddProductResponse": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "taxable": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageKey": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "example": "2022-11-30T01:25:25.197Z"
           },
           "slug": {
             "type": "string"
@@ -1561,9 +3566,63 @@
           }
         }
       },
-
+      "ProductUpdate": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "sku": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "integer"
+              },
+              "taxable": {
+                "type": "boolean"
+              },
+              "brand": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Brand id"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ProductActivate": {
+        "properties": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
       "AddMerchant": {
-        "required": ["name", "business", "phoneNumber", "email", "brand"],
+        "required": [
+          "name",
+          "business",
+          "phoneNumber",
+          "email",
+          "brand"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -1661,7 +3720,12 @@
         }
       },
       "MerchantSignUp": {
-        "required": ["email", "firstName", "lastName", "password"],
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string"
@@ -1710,10 +3774,590 @@
           "__v": {
             "type": "integer"
           }
+        }
+      },
+      "BrandUpdate": {
+        "properties": {
+          "brand": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "BrandDeleteResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "brand": {
+            "properties": {
+              "n": {
+                "type": "integer"
+              },
+              "ok": {
+                "type": "integer"
+              },
+              "deletedCount": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "CartCreateUpdate": {
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "quantity": {
+                  "type": "integer",
+                  "example": 3
+                },
+                "price": {
+                  "type": "number",
+                  "example": 5.43
+                },
+                "taxable": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "product": {
+                  "type": "string",
+                  "description": "Product id"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateCartResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "cartId": {
+            "type": "string"
+          }
+        }
+      },
+      "AddCategory": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "productId"
+            }
+          }
+        }
+      },
+      "AddCategoryResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "isActive": {
+                "type": "boolean"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "CategoryResponse": {
+        "properties": {
+          "isActive": {
+            "type": "boolean"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "CategoryByIdResponse": {
+        "properties": {
+          "category": {
+            "type": "object",
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "CategoryUpdate": {
+        "properties": {
+          "category": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Product id"
+                }
+              }
+
+            }
+          }
+        }
+      },
+      "CategoryActivate": {
+        "properties": {
+          "category": {
+            "type": "object",
+            "properties": {
+              "isActive": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "AddContact": {
+        "required": ["name","email","message"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
 
         }
+      },
+      "AddContactResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "contact": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AddOrder": {
+        "properties": {
+          "cartId": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number"
+          }
+        }
+      },
+      "AddOrderResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "order": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "OrderByIdResponse": {
+        "properties": {
+          "order": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "total": {
+                "type": "number"
+              },
+              "created": {
+                "type": "string"
+              },
+              "totalTax": {
+                "type": "number"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "purchasePrice": {
+                      "type": "number"
+                    },
+                    "totalPrice": {
+                      "type": "number"
+                    },
+                    "priceWithTax": {
+                      "type": "number"
+                    },
+                    "totalTax": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    },
+                    "product": {
+                      "type": "object",
+                      "properties": {
+                        "taxable": {
+                          "type": "boolean"
+                        },
+                        "isActive": {
+                          "type": "boolean"
+                        },
+                        "brand": {
+                          "type": "object",
+                          "properties": {
+                            "isActive": {
+                              "type": "boolean"
+                            },
+                            "merchant": {
+                              "type": "string"
+                            },
+                            "_id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "created": {
+                              "type": "string"
+                            },
+                            "slug": {
+                              "type": "string"
+                            },
+                            "__v": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "sku": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "imageUrl": {
+                          "type": "string"
+                        },
+                        "imageKey": {
+                          "type": "string"
+                        },
+                        "created": {
+                          "type": "string",
+                          "example": "2022-11-30T01:25:25.197Z"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "cartId": {
+                "type": "string"
+              },
+              "totalWithTax": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "OrderSearchResponse": {
+        "properties": {
+          "orders": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "number"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "purchasePrice": {
+                        "type": "number"
+                      },
+                      "totalPrice": {
+                        "type": "number"
+                      },
+                      "priceWithTax": {
+                        "type": "number"
+                      },
+                      "totalTax": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "product": {
+                        "type": "object",
+                        "properties": {
+                          "taxable": {
+                            "type": "boolean"
+                          },
+                          "isActive": {
+                            "type": "boolean"
+                          },
+                          "brand": {
+                            "type": "object",
+                            "properties": {
+                              "isActive": {
+                                "type": "boolean"
+                              },
+                              "merchant": {
+                                "type": "string"
+                              },
+                              "_id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "created": {
+                                "type": "string"
+                              },
+                              "slug": {
+                                "type": "string"
+                              },
+                              "__v": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "_id": {
+                            "type": "string"
+                          },
+                          "sku": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "quantity": {
+                            "type": "integer"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "imageUrl": {
+                            "type": "string"
+                          },
+                          "imageKey": {
+                            "type": "string"
+                          },
+                          "created": {
+                            "type": "string",
+                            "example": "2022-11-30T01:25:25.197Z"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "__v": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "totalTax": {
+                  "type": "number"
+                },
+                "totalWithTax": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
       }
-
     },
     "securitySchemes": {
       "bearerAuth": {

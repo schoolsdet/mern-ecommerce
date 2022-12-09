@@ -23,7 +23,7 @@ router.post('/add', auth, async (req, res) => {
 
     decreaseQuantity(products);
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       cartId: cartDoc.id
     });

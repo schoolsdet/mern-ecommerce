@@ -110,7 +110,7 @@ router.get('/list', async (req, res) => {
       });
     }
 
-    let products = null;
+    let products;
     const productsCount = await Product.aggregate(basicQuery);
     const count = productsCount.length;
     const size = count > limit ? page - 1 : 0;
@@ -120,7 +120,7 @@ router.get('/list', async (req, res) => {
     const paginateQuery = [
       { $sort: sortOrder },
       { $skip: size * limit },
-      { $limit: limit * 1 }
+      { $limit: limit }
     ];
 
     if (userDoc) {
@@ -311,14 +311,14 @@ router.post(
 
       const savedProduct = await product.save();
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         message: `Product has been added successfully!`,
         product: savedProduct
       });
     } catch (error) {
       return res.status(400).json({
-        error: 'Your request could not be processed. Please try again.'
+        error: 'Your request could not be processed. Please try again.',
       });
     }
   }
@@ -331,7 +331,7 @@ router.get(
   role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
   async (req, res) => {
     try {
-      let products = [];
+      let products;
 
       if (req.user.merchant) {
         const brands = await Brand.find({
@@ -379,7 +379,7 @@ router.get(
     try {
       const productId = req.params.id;
 
-      let productDoc = null;
+      let productDoc;
 
       if (req.user.merchant) {
         const brands = await Brand.find({
@@ -433,7 +433,7 @@ router.put(
         $or: [{ slug }, { sku }]
       });
 
-      if (foundProduct && foundProduct._id != productId) {
+      if (foundProduct && foundProduct._id !== productId) {
         return res
           .status(400)
           .json({ error: 'Sku or slug is already in use.' });
