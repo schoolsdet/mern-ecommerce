@@ -2115,10 +2115,235 @@
         }
       }
     },
-    "/order/me": {},
-    "/order/{orderId}": {},
-    "/order/cancel/{orderId}": {},
-    "/order/status/item/{itemId}": {},
+    "/order/me": {
+      "parameters": [{
+        "in": "query",
+        "name": "page",
+        "description": "Page number",
+        "required": true,
+        "example": 1
+      },{
+        "in": "query",
+        "name": "limit",
+        "description": "number or orders on the page",
+        "required": true,
+        "example": 20
+      }],
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get user orders",
+        "description": "Get user orders",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/{orderId}": {
+      "parameters": [{
+        "in": "path",
+        "description": "Order id",
+        "name": "orderId",
+        "required": true
+      }],
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get single order",
+        "description": "Get single order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/cancel/{orderId}": {
+      "parameters": [{
+        "in": "path",
+        "name": "orderId",
+        "description": "Order id",
+        "required": true
+      }],
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Delete single order",
+        "description": "Delete single order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cancel order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/status/item/{itemId}": {
+      "parameters": [{
+        "description": "Product id",
+        "name": "itemId",
+        "required": true,
+        "in": "path"
+      }],
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Cancel item in order",
+        "description": "Cancel item in order by product id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderItemCancel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order item cancel",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
     "/product/item/{slug}": {
       "parameters": [
@@ -4355,6 +4580,32 @@
                 }
               }
             }
+          }
+        }
+      },
+      "OrderItemCancel": {
+        "properties": {
+          "orderId": {
+            "type": "string"
+          },
+          "cartId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderItemCancelResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "orderCancelled": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
           }
         }
       }
