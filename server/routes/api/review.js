@@ -18,7 +18,7 @@ router.post('/add', auth, (req, res) => {
       });
     }
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: `Your review has been added successfully and will appear when approved!`,
       review: data
@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
         path: 'product',
         select: 'name slug imageUrl'
       })
-      .limit(limit * 1)
+      .limit(limit)
       .skip((page - 1) * limit)
       .exec();
 
@@ -163,9 +163,9 @@ router.put('/reject/:reviewId', auth, async (req, res) => {
   }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:reviewId', async (req, res) => {
   try {
-    const review = await Review.deleteOne({ _id: req.params.id });
+    const review = await Review.deleteOne({ _id: req.params.reviewId });
 
     res.status(200).json({
       success: true,
