@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
         path: 'product',
         select: 'name slug imageUrl'
       })
-      .limit(limit)
+      .limit(limit * 1) // keep that - otherwise mongodb throws error
       .skip((page - 1) * limit)
       .exec();
 

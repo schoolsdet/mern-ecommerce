@@ -65,7 +65,7 @@ router.get('/search', auth, async (req, res) => {
       });
     }
 
-    let ordersDoc;
+    let ordersDoc = null;
 
     if (req.user.role === role.ROLES.Admin) {
       ordersDoc = await Order.find({
@@ -139,7 +139,7 @@ router.get('/', auth, async (req, res) => {
           }
         }
       })
-      .limit(limit)
+      .limit(limit * 1) // keep that - otherwise mongodb throws error
       .skip((page - 1) * limit)
       .exec();
 
@@ -177,7 +177,7 @@ router.get('/me', auth, async (req, res) => {
           }
         }
       })
-      .limit(limit)
+      .limit(limit * 1) // keep that - otherwise mongodb throws error
       .skip((page - 1) * limit)
       .exec();
 
@@ -202,7 +202,7 @@ router.get('/:orderId', auth, async (req, res) => {
   try {
     const orderId = req.params.orderId;
 
-    let orderDoc;
+    let orderDoc = null;
 
     if (req.user.role === role.ROLES.Admin) {
       orderDoc = await Order.findOne({ _id: orderId }).populate({

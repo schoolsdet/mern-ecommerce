@@ -147,10 +147,11 @@ export const addProductReview = () => {
 
       const review = getState().review.reviewFormData;
       const product = getState().product.storeProduct;
+      const isRecommended  = review.isRecommended.value === "1" ? "1" : "0"
 
       const newReview = {
         product: product._id,
-        isRecommended: review.isRecommended.value,
+        isRecommended: isRecommended,
         rating: review.rating,
         review: review.review,
         title: review.title

@@ -1141,7 +1141,6 @@
               }
             }
           }
-
         }
       }
     },
@@ -1222,12 +1221,14 @@
       }
     },
     "/category/{id}": {
-      "parameters": [{
-        "in": "path",
-        "description": "Category id",
-        "name": "id",
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "path",
+          "description": "Category id",
+          "name": "id",
+          "required": true
+        }
+      ],
       "get": {
         "tags": [
           "Category"
@@ -1302,12 +1303,14 @@
       }
     },
     "/category/{id}/active": {
-      "parameters": [{
-        "in": "path",
-        "description": "Category id",
-        "name": "id",
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "path",
+          "description": "Category id",
+          "name": "id",
+          "required": true
+        }
+      ],
       "put": {
         "tags": [
           "Category"
@@ -1353,12 +1356,14 @@
       }
     },
     "/category/delete/{id}": {
-      "parameters": [{
-        "in": "path",
-        "name": "id",
-        "description": "Category id",
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "Category id",
+          "required": true
+        }
+      ],
       "delete": {
         "tags": [
           "Category"
@@ -1443,7 +1448,7 @@
         "description": "Subscribe to newsletter",
         "requestBody": {
           "content": {
-            "application/json":{
+            "application/json": {
               "schema": {
                 "properties": {
                   "email": {
@@ -1452,7 +1457,6 @@
                 }
               }
             }
-
           }
         },
         "responses": {
@@ -2005,12 +2009,14 @@
       }
     },
     "/order/search": {
-      "parameters": [{
-        "in": "query",
-        "name": "search",
-        "required": true,
-        "description": "search param"
-      }],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "search",
+          "required": true,
+          "description": "search param"
+        }
+      ],
       "get": {
         "tags": [
           "Order"
@@ -2057,19 +2063,22 @@
       }
     },
     "/order": {
-      "parameters": [{
-        "in": "query",
-        "name": "page",
-        "description": "Page number",
-        "required": true,
-        "example": 1
-      },{
-        "in": "query",
-        "name": "limit",
-        "description": "number or orders on the page",
-        "required": true,
-        "example": 20
-      }],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "page",
+          "description": "Page number",
+          "required": true,
+          "example": 1
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "description": "number or orders on the page",
+          "required": true,
+          "example": 20
+        }
+      ],
       "get": {
         "tags": [
           "Order"
@@ -2116,19 +2125,22 @@
       }
     },
     "/order/me": {
-      "parameters": [{
-        "in": "query",
-        "name": "page",
-        "description": "Page number",
-        "required": true,
-        "example": 1
-      },{
-        "in": "query",
-        "name": "limit",
-        "description": "number or orders on the page",
-        "required": true,
-        "example": 20
-      }],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "page",
+          "description": "Page number",
+          "required": true,
+          "example": 1
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "description": "number or orders on the page",
+          "required": true,
+          "example": 20
+        }
+      ],
       "get": {
         "tags": [
           "Order"
@@ -2175,12 +2187,14 @@
       }
     },
     "/order/{orderId}": {
-      "parameters": [{
-        "in": "path",
-        "description": "Order id",
-        "name": "orderId",
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "path",
+          "description": "Order id",
+          "name": "orderId",
+          "required": true
+        }
+      ],
       "get": {
         "tags": [
           "Order"
@@ -2227,12 +2241,14 @@
       }
     },
     "/order/cancel/{orderId}": {
-      "parameters": [{
-        "in": "path",
-        "name": "orderId",
-        "description": "Order id",
-        "required": true
-      }],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "orderId",
+          "description": "Order id",
+          "required": true
+        }
+      ],
       "delete": {
         "tags": [
           "Order"
@@ -2284,12 +2300,14 @@
       }
     },
     "/order/status/item/{itemId}": {
-      "parameters": [{
-        "description": "Product id",
-        "name": "itemId",
-        "required": true,
-        "in": "path"
-      }],
+      "parameters": [
+        {
+          "description": "Product id",
+          "name": "itemId",
+          "required": true,
+          "in": "path"
+        }
+      ],
       "put": {
         "tags": [
           "Order"
@@ -2313,6 +2331,245 @@
         "responses": {
           "200": {
             "description": "Order item cancel",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/add": {
+      "post": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Add review",
+        "description": "Add review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review Add",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewAddResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "page",
+          "description": "Page number",
+          "required": true,
+          "example": 1
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "description": "number or orders on the page",
+          "required": true,
+          "example": 20
+        }
+      ],
+      "get": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "List reviews",
+        "description": "List Reviews",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/{slug}": {
+      "parameters": [
+        {
+          "description": "Product id",
+          "name": "slug",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Get product reviews",
+        "description": "Get product reviews",
+        "responses": {
+          "200": {
+            "description": "Get product reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSingleProductResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/{id}": {
+      "parameters": [
+        {
+          "description": "Review id",
+          "name": "id",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Update review",
+        "description": "Update Review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review updated",
             "content": {
               "application/json":{
                 "schema": {
@@ -2344,8 +2601,176 @@
         }
       }
     },
-
-
+    "/review/approve/{reviewId}": {
+      "parameters": [
+        {
+          "description": "Review id",
+          "name": "reviewId",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Approve review",
+        "description": "Approve Review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review approved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/reject/{reviewId}": {
+      "parameters": [
+        {
+          "description": "Review id",
+          "name": "reviewId",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Reject review",
+        "description": "Reject Review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/delete/{id}": {
+      "parameters": [
+        {
+          "description": "Review id",
+          "name": "reviewId",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Review"
+        ],
+        "summary": "Reject review",
+        "description": "Reject Review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect Password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/product/item/{slug}": {
       "parameters": [
         {
@@ -4234,7 +4659,6 @@
                   "description": "Product id"
                 }
               }
-
             }
           }
         }
@@ -4252,7 +4676,11 @@
         }
       },
       "AddContact": {
-        "required": ["name","email","message"],
+        "required": [
+          "name",
+          "email",
+          "message"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -4263,7 +4691,6 @@
           "message": {
             "type": "string"
           }
-
         }
       },
       "AddContactResponse": {
@@ -4607,6 +5034,222 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "ReviewAdd": {
+        "properties": {
+          "isRecommended": {
+            "type": "string",
+            "example": "1",
+            "description": "1 ore 0"
+          },
+          "product": {
+            "type": "string",
+            "description": "product id"
+          },
+          "rating": {
+            "type": "string",
+            "example": "4"
+          },
+          "review": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "ReviewAddResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "review": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "product id"
+              },
+              "user": {
+                "type": "string",
+                "description": "User id"
+              },
+              "rating": {
+                "type": "integer"
+              },
+              "isRecommended": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "review": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "created": {
+                "type": "string"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "ReviewResponse": {
+        "properties": {
+          "reviews": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "product": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "imageUrl": {
+                      "type": "string"
+                    },
+                    "slug": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "rating": {
+                  "type": "integer"
+                },
+                "isRecommended": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "review": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "__v": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "currentPage": {
+            "type": "integer"
+          },
+          "count": {
+            "type": "integer"
+          }
+        }
+      },
+      "ReviewSingleProductResponse": {
+        "properties": {
+          "reviews": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "product": {
+                  "type": "string",
+                  "description": "Product id"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "rating": {
+                  "type": "integer"
+                },
+                "isRecommended": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "review": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "__v": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ReviewDeleteResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "review": {
+            "type": "object",
+            "properties": {
+              "n": {
+                "type": "integer"
+              },
+              "ok": {
+                "type": "integer"
+              },
+              "deleteCount": {
+                "type": "integer"
+              }
+            }
           }
         }
       }

@@ -110,7 +110,7 @@ router.get('/list', async (req, res) => {
       });
     }
 
-    let products;
+    let products = null;
     const productsCount = await Product.aggregate(basicQuery);
     const count = productsCount.length;
     const size = count > limit ? page - 1 : 0;
@@ -120,7 +120,7 @@ router.get('/list', async (req, res) => {
     const paginateQuery = [
       { $sort: sortOrder },
       { $skip: size * limit },
-      { $limit: limit }
+      { $limit: limit * 1 } // keep that - otherwise mongodb throws error
     ];
 
     if (userDoc) {
