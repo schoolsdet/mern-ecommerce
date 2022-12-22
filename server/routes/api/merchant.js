@@ -201,7 +201,6 @@ router.put('/reject/:id', auth, async (req, res) => {
 });
 
 router.post('/signup/:token', async (req, res) => {
-  console.log("yoooooooooo")
   try {
     const { email, firstName, lastName, password } = req.body;
 
@@ -223,12 +222,10 @@ router.post('/signup/:token', async (req, res) => {
       email,
       resetPasswordToken: req.params.token
     });
-console.log('userDoc',userDoc)
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
     const query = { _id: userDoc._id };
-    console.log('query',query)
     const update = {
       email,
       firstName,
