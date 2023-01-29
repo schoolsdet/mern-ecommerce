@@ -16,6 +16,7 @@ services:
 
   mern-commerce:
     build: .
+    restart: always
     ports:
       - "127.0.0.1:4005:4005"
     depends_on:
