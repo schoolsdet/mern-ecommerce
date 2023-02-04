@@ -10,6 +10,9 @@
       "url": "https://mern-ecommerce.sdet.school/api"
     },
     {
+      "url": "https://mern-ecommerce-qa.sdet.school/api"
+    },
+    {
       "url": "http://localhost:4005/api"
     }
   ],
